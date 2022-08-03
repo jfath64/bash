@@ -87,7 +87,8 @@ Command Operators:
 
 '&', runs process in background
 '&&', logical AND
-';', allows for multiple commands in one line, equivalent of running two sperate lines of commands
+';', allows for multiple commands in one line, equivalent of running two sperate lines of com
+'-v', means not, inverts matchmands
 '||', logical OR
 '!', logical NOT
 '()', precedence operator, groups events, makes sure commands occur at the same time/instance
@@ -134,3 +135,82 @@ ls $HOME/CUT | cut -d.  -f1- -s > $HOME/CUT/names
 split by '.', then ':', then lastly ' '-empty space
 -OR-
 ls -l $HOME/CUT | cut -d. -f1- -s | cut -d: -f2- -s | cut -d" " -f2 > $HOME/CUT/names
+
+AWK:
+
+awk '{print}' coffee.txt
+-prints every line
+
+awk '/coffee/ {print}' coffee.txt
+-only prints lines with coffee in them 
+
+awk '{print NR,$0}' coffee.txt
+-prints with line numbers
+
+awk 'NR==3, NR==8 {print NR,$0}' coffee.txt
+
+ tail /etc/passwd | awk -F: '{print $NF}'
+ -deliminates on : and shows last field 
+ 
+ tail /etc/passwd | awk -F: '{print $1,$5}'
+-specifies fields
+
+
+tail /etc/passwd | awk 'BEGIN {OFS="#"}{print $1,$2}' 
+-alternate of command above
+
+
+SORT:
+
+sort -o beverages2.txt beverages
+sends sorted file to a new file
+
+-r for reverse sorting
+
+sort -k 2 coffeetable.txt
+-sorts on specified field
+
+SED:
+
+sed 's/tea/coffee/' tea.txt
+ -swaps first instance of tea of each line for coffee
+ 
+ sed 's/tea/coffee/g' tea.txt
+-swaps every instance
+
+sed '3 s/tea/coffee/' tea.txt
+-swaps out a specified line first instance
+
+ sed '$d' tea.txt
+ -deletes a line 
+ 
+ echo "Welcome To The Coffee House" | sed 's/\(\b[A-Z]\)/\(\1\)/g'
+ -sed works with regex
+ 
+ -i hides output 
+ 
+ 
+ UNIQ:
+ 
+ uniq -c coffee.txt
+ -counts each repeated item
+ ~ONLY USE AFTER SORT
+ 
+ -d shows duplicates once
+ -D shows duplicates repeated 
+ -u only shows uniqe lines
+ -i makes case inseneitive
+ 
+ 
+ ALIAS:
+ 
+ alias nano='vim'
+
+ unalias nano
+ 
+ 
+ 
+
+
+
+
