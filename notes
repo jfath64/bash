@@ -1,0 +1,136 @@
+20220802
+BASIC BASH STUFF:
+  CASE SENSITIVE
+'man bash', #help pages
+  'G', bottom of page, 'g' top
+  '/' type pattern, words. 'enter' to itemize thru, 'shift n' back up.
+  'q' quit man pages
+  
+'https://explainshell.com/', help to understand commands.
+'curl cheat.sh/grep...tail...etc', gives example on how to use commands -OR- 'cheat.sh' in browser.
+
+p for uP, n for dowN using shift as opposed to up and down arrow keys to navigate
+can use Ctrl+u to delete everything to the left of the cursor
+
+'touch' creates a file,
+  -d, changes date, -m changes modification time, -t specificaly changes time stamp(YYYYMMDDhhmm.ss)
+'ls' views files in directory
+  -la, -latr, -lisa(shows hidden files)
+              .bashrc is users bash settings, set aliases permanetly
+  
+'Ctrl c/ v' to copy and paste. Also highlight and mouse wheel click to paste
+
+'mkdir', makes directory
+  rm, removes files      'rm A*' removes all file starting with the letter 'A', '*.txt' removes all .txt files
+  rmdir, removes directories
+
+'cd', changes directory
+  shows relative file path (via a '~' meaning home of user)(./   meanings relative path currently on), absolute is more definitive to the path(i.e. typing out the entire file path vs going directory to directory
+  'cd ..' goes up one directory
+  '$HOME' goes to user home, '$' - variable
+'pwd', print working directory, current location
+'whoami', shows ucrrent user
+'hostname', shows device name logged into
+
+'mv', moves file to new directory
+'cp' can also move while making a new copy at the location
+'Ctrl l" clears screen
+
+'ln -s <file> <otherfile>', directions to get to other file
+  creates symbolic links between files, can 'cat' to confirm shared info btw
+  removing symbolic link does not delete original file, only linked file.
+  'ln <file> <hardfile>', only work on same harddrive
+    can't remove linked file
+    
+ 'locate', searches database for stuff that is already installed
+ 'whereis', shows where tool/command is found.
+ 'find -name',wildcards can be used,useful for searching for casesensitive files
+       -iname ignores case *
+        'find /', searches in root
+        'find /<path>' searches in that path
+        'find -type <f,l,d,p,s>',   'p', named pipe
+        'find / -mtime 2', find modified time within two days in/from root
+        'find -empty', finds empty files, can specifiy where ^
+        'find -e', finds executable files
+        'find -maxdepth 2', searches into directories and subdirectory. Can further go 'down'
+        'find -exec',
+        'find ./ -name "*.txt" -printf "%i %f\n" 
+        'find ./ -type d -exec ls -l {} \;', run everything then output to '{}',    ##MUST end with '\;' to indicate end of line/script
+        'find ./find/ ! -name "*.txt" ' find everything that is not a .txt with '!'
+        'find ./find/ ! -name *.sh -name 1*
+  'mkfifo <filename>', make first in first out named pipe
+        pipe usages; 'cat shadow.txt | grep student', prints entire student encrypted password
+        
+  'more' prints one page at a time
+  
+  Multiple Commands!, Brace expansion:
+    'touch ./find/{1..10}.txt', creates 10 .txt files in 'find' directory
+    
+'grep', searches for patterns and then prints it
+'egrep', extended grep, allows for additional formatting
+'-v', means not, inverts match
+
+'cat /etc/passwd | egrep /home/', finds '/home/' in /etc/passwd
+'cat /etc/passwd | egrep -o /home/, finds only '/home/'
+'cat cat /etc/passwd | egrep -o "/home/.*", 
+'cat /etc/passwd | ergrep ":[-9]{3/5}:"
+'cat /etc/passwd | egrep /bash -C2', the -C prints above and belowe, i.e here it prints two lines above and below, -A2 next two, -B2 previous two
+
+
+CUT:
+'tail /etc/passwd | cut -d: -f1', cuts out field 1 then outputs to delimiter. 'cut' trims specifics parts out of files then prints it
+                            -f2-, field 2 and onwards
+                  | cut -d -f1- -s, cuts anything that onyl matches the delimiter, -s makes sure it is there beforehand - will not print 
+               
+               
+Command Operators:
+
+'&', runs process in background
+'&&', logical AND
+';', allows for multiple commands in one line, equivalent of running two sperate lines of commands
+'||', logical OR
+'!', logical NOT
+'()', precedence operator, groups events, makes sure commands occur at the same time/instance
+'>', redirector/outputter, EX ' echo"test" > file.test, OVERWRITES a file
+'>>', appends code to file
+
+
+File Streams:
+
+ERRORS: 'find /* 2>/dev/null | grep "Permission denied", 
+  redirect error messages with '2>/dev/null'
+STDOUT: 'find /* 1>/dev/null 2> debug.log, STDOUT with 1>
+
+
+
+
+Excercises:
+1: mkdir ./$HOME/{1123,1134,1145,1156}
+-OR- mkdir $HOME/11{21,34,45,56}
+
+1.2:  mkdir ./1123names
+touch $HOME/1123/{1..5}.txt 
+touch $HOME/1123/{6..9}~.txt
+-OR-
+touch $HOME/1123/{1..5}names.txt $HOME/1123/{6..9}~.txt
+
+1.3:  find $HOME/1123 -name *.txt
+
+2:f ind $HOME/1123/ ! -name *~.txt -name *.txt -exec cp {} $HOME/CUT/ \;
+-OR- 
+find $HOME/1123 -name "*.txt" ! -name "*~*" -exec cp {} $HOME/CUT/ \;
+cp $(find $HOME/1123 -name "*.txt" -name "*~*")
+
+3:  find /var -empty -printf "%i %f\n"
+
+4:  find -inum 4026532575 -printf
+-OR-
+find / -inum 4026532575 -printf "%f\n" 2>/dev/null
+
+5: ls $HOME/CUT | cut -d. --only-delimited -f1,2 > $HOME/CUT/names 
+-OR-
+ls $HOME/CUT | cut -d.  -f1- -s > $HOME/CUT/names 
+-OR- 
+split by '.', then ':', then lastly ' '-empty space
+-OR-
+ls -l $HOME/CUT | cut -d. -f1- -s | cut -d: -f2- -s | cut -d" " -f2 > $HOME/CUT/names
