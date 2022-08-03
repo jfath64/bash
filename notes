@@ -152,12 +152,14 @@ awk 'NR==3, NR==8 {print NR,$0}' coffee.txt
  tail /etc/passwd | awk -F: '{print $NF}'
  -deliminates on : and shows last field 
  
- tail /etc/passwd | awk -F: '{print $1,$5}'
+ tail /etc/passwp$ openssl passwd -5 -salt bad4u Password1234 
+d | awk -F: '{print $1,$5}'
 -specifies fields
 
 
 tail /etc/passwd | awk 'BEGIN {OFS="#"}{print $1,$2}' 
 -alternate of command above
+p$ openssl passwd -5 -salt bad4u Password1234 
 
 
 SORT:
@@ -171,7 +173,7 @@ sort -k 2 coffeetable.txt
 -sorts on specified field
 
 SED:
-
+uid"]
 sed 's/tea/coffee/' tea.txt
  -swaps first instance of tea of each line for coffee
  
@@ -216,6 +218,33 @@ sed '3 s/tea/coffee/' tea.txt
  -ne !=
  
  
+Command Subsitution:
+
+
+A=$(tail /etc/passwd)
+to call echo $A
+
+computer=$(hostname)
+
+to call- echo "Running command @ $computer"
+
+for f in /etc/*.conf ; do echo "$f"; done
+-prints every .conf file in /etc
+
+
+Examples:
+
+awk -F: '($3 > 3)' $HOME/passwd | awk -F: '/bin\/bash/ {print $1}'  > $HOME/SED/names.txt
+
+awd -F: '($3 > 3) && $NF == "/bin/bash/" {print $1}' $HOME/passwd > $HOME/SED/names.txt
+
+#!/bin/bash
+a=$(openssl passwd -1 -salt bad4u Password1234)
+awk -F: -v "awk_var=$a" 'BEGIN {OFS=":"} {$2=awk_var} {print}' $HOME/PASS/shadow.txt
+
+sed '/\/bin\/sh/d' $HOME/passwd | sed '/\/bin\/false/d' $HOME/passwd > $HOME/PASS/passwd.txt
+
+sed '/\/bin\/sh/d' -e '/\/bin\/false/d' $HOME/passwd > $HOME/PASS/passwd.txt
 
 
 
