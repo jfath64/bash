@@ -209,6 +209,12 @@ sed '3 s/tea/coffee/' tea.txt
  unalias nano
  
  
+ Operators:
+ ! not
+ -f if file exsists 
+ -eq =
+ -ne !=
+ 
  
 
 
