@@ -266,6 +266,87 @@ $_
 -last argument passed to the prior command
 
 
+
+USER INPUT:
+
+
+1 #!/bin/bash
+  2 function getuserchoice()
+  3 {
+  4 
+  5     echo "Make a choice [1,2,3]:"
+  6     read userchoice
+  7     case $userchoice in
+  8     (1) echo one ;;
+  9 1 #!/bin/bash
+  2 
+  3 while[ what test ]
+  4 do
+  5     commmands
+  6 done
+  7 
+    (2) echo two ;;
+ 10     (3) echo three;;
+ 11     (*) echo other ;;
+ 12     esac
+ 13 }
+ 14 
+ 15 getuserchoice
+
+
+
+
+
+LOOPS:
+
+
+1 #!/bin/bash
+  2 
+  3 while[ what test ]
+  4 do
+  5     commmands
+  6 done
+  7 
+
+ #!/bin/bash
+  2 
+  3 for var in <list>
+  4 do  
+  5     commands
+  6 done
+  7 
+
+
+1 #!/bin/bash
+  2 
+  3 until <tests>
+  4 do
+  5     commands
+  6 done
+
+
+(counter++)
+
+a=`expr $counter + 1`
+
+
+
+ 1 #!/bin/bash
+  2 
+  3 names='Nicki Jamie Rollie Rotty Nkenesliw Sam Folkwarr Quit'
+  4 select name in $names
+  5 do
+  6     if [[ $name == 'Quit' ]]
+  7     then
+  8         break
+  9     fi
+ 10     echo Hello $name
+ 11 done
+ 12 echo Bye
+
+
+
+
 #!/bin/bash
   2 #This is a basic function
   3 
