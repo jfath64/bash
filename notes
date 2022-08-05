@@ -3,7 +3,7 @@ BASIC BASH STUFF:
   CASE SENSITIVE
 'man bash', #help pages
   'G', bottom of page, 'g' top
-  '/' type pattern, words. 'enter' to itemize thru, 'shift n' back up.
+  '/' type paip routttern, words. 'enter' to itemize thru, 'shift n' back up.
   'q' quit man pages
   
 'https://explainshell.com/', help to understand commands.
@@ -228,7 +228,8 @@ computer=$(hostname)
 
 to call- echo "Running command @ $computer"
 
-for f in /etc/*.conf ; do echo "$f"; done
+for f in /etc/*.conf ; do echo "$f"; dothe files coming into unix box on the fly.
+I get a file some thing like this in a single line.ne
 -prints every .conf file in /etc
 
 
